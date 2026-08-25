@@ -1,0 +1,2 @@
+require('dotenv').config(); const mysql=require('mysql2/promise');
+(async()=>{const db=process.env.DB_NAME||'kumon_centre';const c=await mysql.createConnection({host:process.env.DB_HOST||'127.0.0.1',port:Number(process.env.DB_PORT||3306),user:process.env.DB_USER,password:process.env.DB_PASSWORD,multipleStatements:true});await c.query(`DROP DATABASE IF EXISTS \`${db}\``);await c.end();console.log('Database dropped. Run npm run db:init next.');})().catch(e=>{console.error(e);process.exit(1)});
